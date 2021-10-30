@@ -1,15 +1,16 @@
 import { defineConfig } from 'dumi';
 
-const repo = 'dumi-template';
+const repo = 'TypeScript-Note';
 
 export default defineConfig({
   title: repo,
   favicon:
-    'https://user-images.githubusercontent.com/9554297/83762004-a0761b00-a6a9-11ea-83b4-9c8ff721d4b8.png',
+    'https://www.typescriptlang.org/icons/icon-512x512.png?v=8944a05a8b601855de116c8a56d3b3ae',
   logo:
-    'https://user-images.githubusercontent.com/9554297/83762004-a0761b00-a6a9-11ea-83b4-9c8ff721d4b8.png',
+    'https://www.typescriptlang.org/icons/icon-512x512.png?v=8944a05a8b601855de116c8a56d3b3ae',
   outputPath: 'docs-dist',
   mode: 'site',
+  locales: [['zh-CN', '中文']],
   hash: true,
   // Because of using GitHub Pages
   base: `/${repo}/`,
