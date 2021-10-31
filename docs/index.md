@@ -3,7 +3,7 @@ title: TypeScript-Note
 order: 10
 hero:
   title: TypeScript-Note
-  desc: 📖 study typescript 构建 JS 语言超集 TS 知识体系！
+  desc: 📖 study typescript 构建 JS 语言超集 TS 知识体系!!
   actions:
     - text: 快速上手
       link: /base/overview
