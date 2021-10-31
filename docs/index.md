@@ -6,7 +6,7 @@ hero:
   desc: 📖 study typescript
   actions:
     - text: 快速上手
-      link: /components/foo
+      link: /base/overview
 features:
   - icon: https://gw.alipayobjects.com/zos/bmw-prod/881dc458-f20b-407b-947a-95104b5ec82b/k79dm8ih_w144_h144.png
     title: 开箱即用

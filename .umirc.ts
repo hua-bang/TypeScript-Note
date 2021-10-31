@@ -19,7 +19,7 @@ export default defineConfig({
     null,
     {
       title: 'GitHub',
-      path: 'https://github.com/umijs/dumi-template',
+      path: 'https://github.com/hua-bang/TypeScript_Note',
     },
   ],
   // more config: https://d.umijs.org/config
