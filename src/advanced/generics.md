@@ -1,5 +1,5 @@
 ---
-dangnav:
+nav:
   title: 进阶
   path: /advanced
 group:
