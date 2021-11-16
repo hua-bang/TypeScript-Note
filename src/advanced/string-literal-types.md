@@ -5,7 +5,7 @@ nav:
 group:
   title: 进阶
   order: 3
-title: 索引类型
+title: 字符串字面量类型
 order: 12
 ---
 
