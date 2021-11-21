@@ -5,9 +5,11 @@ nav:
 group:
   title: Base
   order: 1
-title: MyPick
-order: 2
----# MyReadOnly
+title: MyReadOnly
+order: 3
+---
+
+# MyReadOnly
 
 在之前的泛型工具中，我们介绍了`ReadOnly`这个泛型工具。那么我们如何进行实现呢。
 
