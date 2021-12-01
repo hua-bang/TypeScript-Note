@@ -4,7 +4,7 @@ nav:
   path: /type-challenges
 group:
   title: Medium
-  order: 1
+  order: 2
 title: Get Return Type
 order: 1
 ---
