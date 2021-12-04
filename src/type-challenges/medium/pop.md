@@ -5,7 +5,7 @@ nav:
 group:
   title: Medium
   order: 2
-title: Last
+title: Pop
 order: 7
 ---
 
