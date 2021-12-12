@@ -5,7 +5,7 @@ nav:
 group:
   title: Medium
   order: 2
-title: Permutation
+title: LengthOfString
 order: 16
 ---
 
