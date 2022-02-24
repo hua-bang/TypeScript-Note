@@ -137,3 +137,125 @@ type DropSubStr<Str extends string, SubStr extends string> =
 ```
 
 ![image-20220224150814416](../../../assert/rebuild/image-20220224150814416.png)
+
+## 函数类型
+
+### AppendArgument
+
+下面我们实现在原有的函数类型上添加一个参数。
+
+```ts
+type AppendArgument<T extends Function, Arg> = T extends (
+  ...args: infer OriginArgs
+) => infer Value
+  ? (...args: [...OriginArgs, Arg]) => Value
+  : never;
+```
+
+![image-20220224173312551](../../../assert/rebuild/image-20220224173312551.png)
+
+## 索引类型
+
+### Mapping
+
+```ts
+type Mapping<Obj extends Object> = {
+  [Key in keyof Obj]: [Obj[Key], Obj[Key], Obj[Key]];
+};
+```
+
+![image-20220224173628888](../../../assert/rebuild/image-20220224173628888.png)
+
+### UppercaseKey
+
+下面实现将索引转大写
+
+```ts
+type UppercaseKey<Obj extends Object> = {
+  [Key in keyof Obj as Uppercase<Key & string>]: Obj[Key];
+}
+```
+
+![image-20220224174044323](../../../assert/rebuild/image-20220224174044323.png)
+
+### Record
+
+TypeScript 提供内置的高级类型`Record`来创建索引类型。
+
+```ts
+type Record<K extends string | number | symbol, T> = {
+  [P in K]: T;
+};
+```
+
+![image-20220224174521710](../../../assert/rebuild/image-20220224174521710.png)
+
+### ToReadonly
+
+我们都知道索引类型可以添加 readonly 的修饰符，代表只读。
+
+那我们可以结果索引类型添加`readonly`修饰的高级类型。
+
+```ts
+type ToReadonly<T extends object> = {
+  readonly [Key in keyof T]: T[Key];
+};
+```
+
+![image-20220224175054709](../../../assert/rebuild/image-20220224175054709.png)
+
+### ToPartial
+
+索引类型可以添加可选修饰符
+
+```ts
+type ToPartial<T extends object> = {
+  [Key in keyof T]?: T[Key];
+};
+```
+
+![image-20220224175440450](../../../assert/rebuild/image-20220224175440450.png)
+
+### ToMutable
+
+可以添加`readonly`修改，也可以去掉
+
+```ts
+type ToMutable<T extends object> = {
+  -readonly [Key in keyof T]: T[Key];
+};
+```
+
+![image-20220224175725414](../../../assert/rebuild/image-20220224175725414.png)
+
+### ToRequired
+
+同理，我们可以去掉可选修饰符
+
+```ts
+type ToRequired<T extends object> = {
+  [Key in keyof T]-?: T[Key];
+};
+```
+
+![image-20220224180030681](../../../assert/rebuild/image-20220224180030681.png)
+
+### FilterByValueType
+
+我们可以结果索引类型保留我们想要过滤的类型。
+
+```ts
+type FilterByValueType<T extends object, ValueType> = {
+  [
+    Key in keyof T as ValueType extends T[Key] ? Key : never
+  ] : T[Key];
+};
+```
+
+![image-20220224180824587](../../../assert/rebuild/image-20220224180824587.png)
+
+## 总结
+
+`TypeScript`类型系统支持 3 种可以声明任意类型的变量: `type`,`infer`,`类型参数`。
+
+**`TypeScript`的`type`、`infer`，类型参数声明的变量都不能修改，对类型做各种变换产生新的类型需要重新构造。**
