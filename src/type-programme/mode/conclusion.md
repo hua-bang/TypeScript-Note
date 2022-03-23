@@ -105,4 +105,104 @@ type UppercaseA<Item extends string> = Item extends 'a'
 
 ## 练练手
 
-ParseQueryString
+### ParseQueryString
+
+这个很类似我们在提取网址的 url 参数，但以前我们往往这样写。
+
+```ts
+function parseQueryString<T extends string>(str: T): Record<string, any> {
+  if (!str) {
+    return {} as any;
+  }
+
+  const queryMap: Record<string, any> = {};
+
+  str.split('&').forEach(item => {
+    const [key, value = ''] = item.split('=');
+    if (key && value !== '') {
+      if (queryMap[key]) {
+        if (Array.isArray(queryMap[key])) {
+          queryMap[key].push(value);
+        } else {
+          queryMap[key] = [queryMap[key], value];
+        }
+      } else {
+        queryMap[key] = value;
+      }
+    }
+  });
+
+  return queryMap as any;
+}
+```
+
+但上述的方案还是有点缺陷，因为他不能准确推断类型。
+
+我们用类型改造一下。
+
+```ts
+type ParseParam<T extends string> =
+  T extends `${infer Key}=${infer Value}`
+    ? { [K in Key]: Value }
+    : Record<string, any>;
+
+type MergeValues<One, Other> =
+  One extends Other
+    ? One
+      : Other extends unknown[]
+        ? [One, ...Other]
+          : [One, Other];
+
+
+type MergeParam<
+  OneParam extends Record<string, any>,
+  OtherParam extends Record<string, any>
+> = {
+  [Key in keyof OneParam | keyof OtherParam]:
+    Key extends keyof OneParam
+      ? Key extends keyof OtherParam
+        ? MergeValues<OneParam[Key], OtherParam[Key]>
+          : OneParam[Key]
+            : Key extends keyof OtherParam
+              ? OtherParam[Key]
+                : null;
+}
+
+type ParseQueryString<T extends string> =
+  T extends `${infer Param}&${infer Rest}`
+    ? MergeParam<ParseParam<Param>, ParseQueryString<Rest>>
+      : ParseParam<T>;
+
+function parseQueryString<T extends string>(str: T): ParseQueryString<T> {
+  if (!str) {
+    return {} as any;
+  }
+
+  const queryMap: Record<string, any> = {};
+
+  str.split('&').forEach(item => {
+    const [key, value = ''] = item.split('=');
+    if (key && value !== '') {
+      if (queryMap[key]) {
+        if (Array.isArray(queryMap[key])) {
+          queryMap[key].push(value);
+        } else {
+          queryMap[key] = [queryMap[key], value];
+        }
+      } else {
+        queryMap[key] = value;
+      }
+    }
+  });
+
+  return queryMap as any;
+}
+```
+
+效果
+
+![image-20220323122358635](../../../assert/image-20220323122358635.png)
+
+## 参考
+
+- [TypeScript 类型体操通关秘籍 - zxg\_神说要有光 - 掘金小册 (juejin.cn)](https://juejin.cn/book/7047524421182947366)
