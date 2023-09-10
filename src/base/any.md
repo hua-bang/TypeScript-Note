@@ -14,7 +14,7 @@ order: 3
 在 TypeScript 中，任何类型都可以归为 any 类型。any 类型时类型系统的顶级类型。
 
 ```ts
-let notSure: any = 666;
+let notSure: any = 66677;
 notSure = 'semdLinke';
 notSure = false;
 ```
